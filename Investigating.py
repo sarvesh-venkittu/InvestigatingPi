@@ -16,3 +16,13 @@ def buffon_needle(trials, needle_length=0.5, line_distance=1.0):
         return float('inf') 
     pi_estimate = (2 * needle_length * trials) / (cross_count * line_distance)
     return pi_estimate
+
+def monte_carlo(trials):
+    inside_circle = 0
+    for _ in range(trials):
+        x = np.random.uniform(0, 1)
+        y = np.random.uniform(0, 1)
+        if x ** 2 + y ** 2 <= 1:
+            inside_circle += 1
+    pi_estimate = (inside_circle / trials) * 4
+    return pi_estimate
