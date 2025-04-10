@@ -3,7 +3,7 @@
 # May 3, 2025
 
 import numpy as np
-
+import time 
 
 def buffon_needle(trials, needle_length=0.5, line_distance=1.0):
     cross_count = 0
@@ -26,3 +26,24 @@ def monte_carlo(trials):
             inside_circle += 1
     pi_estimate = (inside_circle / trials) * 4
     return pi_estimate
+
+def run_comparison(num_runs=10, trials_per_run=100000):
+    buffon_times = []
+    monte_times = []
+    buffon_pis = []
+    monte_pis = []
+
+    for _ in range(num_runs):
+        start = time.time()
+        pi_buffon = buffon_needle(trials_per_run)
+        end = time.time()
+        buffon_times.append(end - start)
+        buffon_pis.append(pi_buffon)
+
+        start = time.time()
+        pi_monte = monte_carlo(trials_per_run)
+        end = time.time()
+        monte_times.append(end - start)
+        monte_pis.append(pi_monte)
+
+    return buffon_times, monte_times, buffon_pis, monte_pis
